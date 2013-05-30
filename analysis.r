@@ -10,6 +10,9 @@ names(approval.rating)[1] <- "Pollster"
 npolls <- nrow(approval.rating)
 approval.rating$PollNumber <- npolls:1
 
+require(ggplot2)
+require("gridExtra")
+
 # There is a lot of different pollsters
 ggplot(approval.rating, aes(Pollster), aes(color, fill=Approve) ) + geom_bar() + coord_flip()
 
@@ -22,9 +25,6 @@ poll.table <- table(approval.rating$Pollster)
 top <- names(poll.table[poll.table>60])
 
 top.pollsters <- approval.rating[approval.rating$Pollster %in% top,]
-
-require(ggplot2)
-require("gridExtra")
 
 # Bar plot of disaproval values
 p1 <- ggplot(top.pollsters, aes(Pollster, fill=disapprove.bins)) + 
